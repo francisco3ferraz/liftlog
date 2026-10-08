@@ -1,0 +1,37 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["config:recommended", "schedule:weekly"],
+  "dependencyDashboard": true,
+  "packageRules": [
+    {
+      "description": "Group Gradle build updates (wrapper, plugins, libraries)",
+      "matchManagers": ["gradle", "gradle-wrapper"],
+      "groupName": "Gradle"
+    },
+    {
+      "description": "Group Spring updates so the Boot, Modulith and plugin versions move together",
+      "matchManagers": ["gradle"],
+      "matchPackageNames": ["org.springframework**", "io.spring**"],
+      "groupName": "Spring"
+    },
+    {
+      "description": "Group npm updates",
+      "matchManagers": ["npm"],
+      "groupName": "npm"
+    },
+    {
+      "description": "Automerge patch updates of dev dependencies only",
+      "matchManagers": ["npm"],
+      "matchDepTypes": ["devDependencies"],
+      "matchUpdateTypes": ["patch"],
+      "groupName": "npm dev dependencies (patch)",
+      "automerge": true
+    },
+    {
+      "description": "Major updates need explicit approval from the dependency dashboard",
+      "matchUpdateTypes": ["major"],
+      "dependencyDashboardApproval": true,
+      "automerge": false
+    }
+  ]
+}
