@@ -21,6 +21,8 @@ dependencies {
 val testScope = providers.gradleProperty("testScope").orElse("all")
 
 tasks.test {
+    // Instants are UTC; this also keeps legacy host zone ids (e.g. "Portugal") away from Postgres 18.
+    systemProperty("user.timezone", "UTC")
     useJUnitPlatform {
         includeEngines("junit-jupiter", "jqwik")
     }

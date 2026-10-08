@@ -4,6 +4,11 @@ spring:
   threads:
     virtual:
       enabled: true
+  jpa:
+    open-in-view: false
+    hibernate:
+      # Flyway owns the schema; Hibernate only checks entity mappings against it.
+      ddl-auto: validate
 
 server:
   shutdown: graceful
