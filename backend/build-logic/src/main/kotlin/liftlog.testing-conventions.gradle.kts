@@ -33,7 +33,8 @@ tasks.test {
             "integration" -> includeTestsMatching("*IT")
             else -> throw GradleException("Unknown testScope '$scope' (expected all, unit or integration)")
         }
-        isFailOnNoMatchingTests = false
+        // A scope may legitimately match nothing; an explicit --tests filter must still match.
+        isFailOnNoMatchingTests = testScope.get() == "all"
     }
     finalizedBy(tasks.jacocoTestReport)
 }
