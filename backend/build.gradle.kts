@@ -1,5 +1,6 @@
 plugins {
     id("liftlog.java-conventions")
+    id("liftlog.quality-conventions")
     alias(libs.plugins.spring.boot)
     alias(libs.plugins.spring.dependency.management)
 }
