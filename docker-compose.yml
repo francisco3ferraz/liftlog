@@ -1,4 +1,4 @@
-# Local development infrastructure Every port is bound to 127.0.0.1.
+# Local development infrastructure. Every port is bound to 127.0.0.1.
 # Variables come from .env (see .env.example); defaults match application-local.yml.
 
 name: liftlog
