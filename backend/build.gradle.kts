@@ -15,6 +15,8 @@ springBoot {
 
 tasks.bootRun {
     systemProperty("user.timezone", "UTC")
+    // Used only when no profile is active, so SPRING_PROFILES_ACTIVE still wins.
+    systemProperty("spring.profiles.default", "local")
 }
 
 dependencyManagement {
