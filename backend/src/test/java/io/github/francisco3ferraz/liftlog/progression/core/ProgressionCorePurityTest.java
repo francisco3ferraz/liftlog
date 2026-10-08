@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 class ProgressionCorePurityTest {
 
     @Test
-    void coreDependsOnlyOnTheJdkAndItself() {
+    void coreDependsOnlyOnTheJdkNullnessAnnotationsAndItself() {
         var core = new ClassFileImporter()
                 .withImportOption(ImportOption.Predefined.DO_NOT_INCLUDE_TESTS)
                 .importPackages("io.github.francisco3ferraz.liftlog.progression.core");
@@ -19,7 +19,7 @@ class ProgressionCorePurityTest {
                 .resideInAPackage("..progression.core..")
                 .should()
                 .onlyDependOnClassesThat()
-                .resideInAnyPackage("java..", "..progression.core..")
+                .resideInAnyPackage("java..", "org.jspecify..", "..progression.core..")
                 .check(core);
     }
 }
