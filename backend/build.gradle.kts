@@ -23,3 +23,15 @@ dependencyManagement {
         mavenBom(libs.testcontainers.bom.get().toString())
     }
 }
+
+dependencies {
+    implementation(libs.spring.boot.starter.webmvc)
+    implementation(libs.spring.boot.starter.actuator)
+
+    testImplementation(libs.spring.boot.starter.test)
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+}
+
+tasks.test {
+    useJUnitPlatform()
+}

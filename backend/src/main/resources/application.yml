@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: liftlog
+  threads:
+    virtual:
+      enabled: true
+
+server:
+  shutdown: graceful
