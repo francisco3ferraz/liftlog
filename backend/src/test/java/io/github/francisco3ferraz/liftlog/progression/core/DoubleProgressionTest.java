@@ -24,6 +24,16 @@ class DoubleProgressionTest {
     }
 
     @Test
+    void aFailedSetHoldsOneRepAboveItsCompletedReps() {
+        var baseline = List.of(working("80", 10), working("80", 10), failed("80", 7));
+
+        var recommendation = DoubleProgression.recommend(SIX_TO_TEN, baseline);
+
+        assertThat(recommendation.decision()).isEqualTo(Recommendation.Decision.HOLD);
+        assertThat(recommendation.targets()).containsExactly(target("80", 10), target("80", 10), target("80", 8));
+    }
+
+    @Test
     void increasesWhenEveryPrescribedSetReachesTheTop() {
         var baseline = List.of(working("80", 10), working("80", 10), working("80", 10));
 
