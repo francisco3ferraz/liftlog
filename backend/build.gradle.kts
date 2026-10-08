@@ -1,6 +1,7 @@
 plugins {
     id("liftlog.java-conventions")
     id("liftlog.quality-conventions")
+    id("liftlog.testing-conventions")
     alias(libs.plugins.spring.boot)
     alias(libs.plugins.spring.dependency.management)
 }
@@ -24,9 +25,4 @@ dependencies {
     implementation(libs.spring.boot.starter.actuator)
 
     testImplementation(libs.spring.boot.starter.test)
-    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
-}
-
-tasks.test {
-    useJUnitPlatform()
 }

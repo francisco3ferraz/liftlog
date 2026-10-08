@@ -35,3 +35,4 @@ playwright/.cache/
 
 # Logs
 *.log
+.jqwik-database
