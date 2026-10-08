@@ -26,6 +26,6 @@ public final class DoubleProgression {
 
         return allAtTop && rirOk
                 ? Recommendation.increase(prescribed, line.incrementKg(), line.repMin())
-                : Recommendation.hold(prescribed, line.repMin(), line.repMax());
+                : Recommendation.hold(prescribed, line.prescribedSets(), line.repMin(), line.repMax());
     }
 }

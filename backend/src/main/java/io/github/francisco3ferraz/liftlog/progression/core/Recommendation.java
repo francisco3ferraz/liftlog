@@ -1,6 +1,7 @@
 package io.github.francisco3ferraz.liftlog.progression.core;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -37,10 +38,14 @@ public record Recommendation(Decision decision, List<Target> targets) {
         return new Recommendation(Decision.INCREASE, targets);
     }
 
-    static Recommendation hold(List<LoggedSet> prescribed, int repMin, int repMax) {
-        var targets = prescribed.stream()
+    /** Prescribed sets missing from the baseline repeat the target of the last logged set. */
+    static Recommendation hold(List<LoggedSet> prescribed, int prescribedSets, int repMin, int repMax) {
+        var targets = new ArrayList<>(prescribed.stream()
                 .map(set -> new Target(set.weightKg(), Math.max(Math.min(set.completedReps() + 1, repMax), repMin)))
-                .toList();
+                .toList());
+        while (targets.size() < prescribedSets) {
+            targets.add(targets.getLast());
+        }
         return new Recommendation(Decision.HOLD, targets);
     }
 }

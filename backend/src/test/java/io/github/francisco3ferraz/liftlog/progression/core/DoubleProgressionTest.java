@@ -125,7 +125,18 @@ class DoubleProgressionTest {
         var recommendation = DoubleProgression.recommend(SIX_TO_TEN, baseline);
 
         assertThat(recommendation.decision()).isEqualTo(Recommendation.Decision.HOLD);
-        assertThat(recommendation.targets()).containsExactly(target("80", 10), target("80", 10));
+        assertThat(recommendation.targets()).containsExactly(target("80", 10), target("80", 10), target("80", 10));
+    }
+
+    @Test
+    void missingPrescribedSetsTakeTheLastLoggedSetsTarget() {
+        var fourSets = line(6, 10, 4, false);
+        var baseline = List.of(working("80", 9), working("77.5", 7));
+
+        var recommendation = DoubleProgression.recommend(fourSets, baseline);
+
+        assertThat(recommendation.targets())
+                .containsExactly(target("80", 10), target("77.5", 8), target("77.5", 8), target("77.5", 8));
     }
 
     @Test
