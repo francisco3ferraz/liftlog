@@ -1,0 +1,38 @@
+# Local development infrastructure Every port is bound to 127.0.0.1.
+# Variables come from .env (see .env.example); defaults match application-local.yml.
+
+name: liftlog
+
+services:
+  postgres:
+    image: postgres:18
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-liftlog}
+      POSTGRES_USER: ${POSTGRES_USER:-liftlog}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-liftlog}
+    ports:
+      - "127.0.0.1:${POSTGRES_PORT:-5432}:5432"
+    volumes:
+      # Postgres 18 images keep PGDATA under /var/lib/postgresql/<major>/docker.
+      - postgres-data:/var/lib/postgresql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U \"$${POSTGRES_USER}\" -d \"$${POSTGRES_DB}\""]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+
+  mailpit:
+    image: axllent/mailpit:v1.27
+    ports:
+      - "127.0.0.1:${MAILPIT_SMTP_PORT:-1025}:1025"
+      - "127.0.0.1:${MAILPIT_UI_PORT:-8025}:8025"
+    healthcheck:
+      test: ["CMD", "/mailpit", "readyz"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 5s
+
+volumes:
+  postgres-data:

@@ -1,0 +1,10 @@
+# Local profile: the docker-compose.yml infrastructure.
+# Defaults match docker-compose.yml; override via the variables in .env.example.
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:${POSTGRES_PORT:5432}/${POSTGRES_DB:liftlog}
+    username: ${POSTGRES_USER:liftlog}
+    password: ${POSTGRES_PASSWORD:liftlog}
+  mail:
+    host: localhost
+    port: ${MAILPIT_SMTP_PORT:1025}
