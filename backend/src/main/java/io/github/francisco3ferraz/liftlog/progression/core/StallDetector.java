@@ -5,7 +5,8 @@ import java.util.Objects;
 
 /**
  * Stall flag of a progression line. A session progressed when at least one set is {@link SetPairing.Mark#PROGRESSED}
- * and none is {@link SetPairing.Mark#REGRESSED}. A session with no baseline starts a new run.
+ * and none is {@link SetPairing.Mark#REGRESSED}. A session with no baseline starts a new run, and a session with no
+ * working sets is skipped.
  */
 public final class StallDetector {
 
@@ -19,6 +20,9 @@ public final class StallDetector {
         }
         int run = 0;
         for (var pairing : recentPairings.reversed()) {
+            if (pairing.todayWorkingSets() == 0) {
+                continue;
+            }
             if (!hasBaseline(pairing) || progressed(pairing)) {
                 break;
             }
