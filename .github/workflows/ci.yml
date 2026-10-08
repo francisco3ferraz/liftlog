@@ -1,0 +1,45 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  backend:
+    name: Backend check
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    defaults:
+      run:
+        working-directory: backend
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: '25'
+
+      - uses: gradle/actions/setup-gradle@v5
+
+      - name: Check
+        run: ./gradlew check --no-daemon
+
+      - name: Upload test and coverage reports
+        if: failure()
+        uses: actions/upload-artifact@v5
+        with:
+          name: backend-reports
+          path: |
+            backend/build/reports/tests/
+            backend/build/reports/jacoco/
+            backend/build/test-results/
+          if-no-files-found: ignore
+          retention-days: 7
