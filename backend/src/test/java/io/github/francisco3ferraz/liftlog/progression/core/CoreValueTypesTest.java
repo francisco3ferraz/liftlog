@@ -147,6 +147,30 @@ class CoreValueTypesTest {
         }
 
         @Test
+        void acceptsTargetRirAtTheBoundsOfTheScale() {
+            var line = new LineSettings(6, 10, new BigDecimal("2.5"), 0, 4, 3, true);
+
+            assertThat(line.targetRirMin()).isZero();
+            assertThat(line.targetRirMax()).isEqualTo(4);
+        }
+
+        @ParameterizedTest
+        @ValueSource(ints = {-1, 5})
+        void rejectsTargetRirMinOutsideTheScale(int targetRirMin) {
+            assertThatIllegalArgumentException()
+                    .isThrownBy(() -> new LineSettings(6, 10, new BigDecimal("2.5"), targetRirMin, 4, 3, false))
+                    .withMessageContaining("targetRirMin");
+        }
+
+        @ParameterizedTest
+        @ValueSource(ints = {-1, 5})
+        void rejectsTargetRirMaxOutsideTheScale(int targetRirMax) {
+            assertThatIllegalArgumentException()
+                    .isThrownBy(() -> new LineSettings(6, 10, new BigDecimal("2.5"), 0, targetRirMax, 3, false))
+                    .withMessageContaining("targetRirMax");
+        }
+
+        @Test
         void rejectsTargetRirMaxBelowTargetRirMin() {
             assertThatIllegalArgumentException()
                     .isThrownBy(() -> new LineSettings(6, 10, new BigDecimal("2.5"), 3, 1, 3, false))

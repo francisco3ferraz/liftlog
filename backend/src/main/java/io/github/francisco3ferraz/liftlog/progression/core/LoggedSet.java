@@ -11,7 +11,7 @@ import java.util.Optional;
 public record LoggedSet(Kind kind, BigDecimal weightKg, int completedReps, boolean failed, Optional<Integer> rir) {
 
     private static final BigDecimal WEIGHT_STEP_KG = new BigDecimal("0.25");
-    private static final int MAX_RIR = 4;
+    static final int MAX_RIR = 4;
 
     public enum Kind {
         WORKING,
