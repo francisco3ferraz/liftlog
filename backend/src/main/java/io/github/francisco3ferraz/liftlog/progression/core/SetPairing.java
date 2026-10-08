@@ -12,9 +12,9 @@ import java.util.Optional;
 public record SetPairing(List<Pair> pairs, int todayWorkingSets) {
 
     public enum Mark {
-        UP,
-        EQUAL,
-        DOWN,
+        PROGRESSED,
+        MATCHED,
+        REGRESSED,
         EXTRA,
         MISSING;
 
@@ -25,9 +25,9 @@ public record SetPairing(List<Pair> pairs, int todayWorkingSets) {
 
         static Mark of(SetComparison comparison) {
             return switch (comparison) {
-                case UP -> UP;
-                case EQUAL -> EQUAL;
-                case DOWN -> DOWN;
+                case PROGRESSED -> PROGRESSED;
+                case MATCHED -> MATCHED;
+                case REGRESSED -> REGRESSED;
             };
         }
     }

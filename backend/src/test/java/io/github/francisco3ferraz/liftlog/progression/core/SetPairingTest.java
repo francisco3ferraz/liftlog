@@ -20,7 +20,7 @@ class SetPairingTest {
 
         var pairing = SetPairing.pair(today, baseline, REP_MIN);
 
-        assertThat(pairing.marks()).containsExactly(Mark.UP, Mark.EQUAL, Mark.DOWN);
+        assertThat(pairing.marks()).containsExactly(Mark.PROGRESSED, Mark.MATCHED, Mark.REGRESSED);
     }
 
     @Test
@@ -41,7 +41,7 @@ class SetPairingTest {
 
         var pairing = SetPairing.pair(today, baseline, REP_MIN);
 
-        assertThat(pairing.marks()).containsExactly(Mark.UP, Mark.EQUAL);
+        assertThat(pairing.marks()).containsExactly(Mark.PROGRESSED, Mark.MATCHED);
     }
 
     @Test
@@ -51,7 +51,7 @@ class SetPairingTest {
 
         var pairing = SetPairing.pair(today, baseline, REP_MIN);
 
-        assertThat(pairing.marks()).containsExactly(Mark.EQUAL, Mark.EXTRA, Mark.EXTRA);
+        assertThat(pairing.marks()).containsExactly(Mark.MATCHED, Mark.EXTRA, Mark.EXTRA);
         assertThat(pairing.pairs().get(2).baseline()).isEmpty();
     }
 
@@ -62,7 +62,7 @@ class SetPairingTest {
 
         var pairing = SetPairing.pair(today, baseline, REP_MIN);
 
-        assertThat(pairing.marks()).containsExactly(Mark.EQUAL, Mark.MISSING, Mark.MISSING);
+        assertThat(pairing.marks()).containsExactly(Mark.MATCHED, Mark.MISSING, Mark.MISSING);
         assertThat(pairing.pairs().get(1).today()).isEmpty();
     }
 
@@ -79,9 +79,9 @@ class SetPairingTest {
     void onlyExtraAndMissingAreNeutral() {
         assertThat(Mark.EXTRA.isNeutral()).isTrue();
         assertThat(Mark.MISSING.isNeutral()).isTrue();
-        assertThat(Mark.UP.isNeutral()).isFalse();
-        assertThat(Mark.EQUAL.isNeutral()).isFalse();
-        assertThat(Mark.DOWN.isNeutral()).isFalse();
+        assertThat(Mark.PROGRESSED.isNeutral()).isFalse();
+        assertThat(Mark.MATCHED.isNeutral()).isFalse();
+        assertThat(Mark.REGRESSED.isNeutral()).isFalse();
     }
 
     @Test
