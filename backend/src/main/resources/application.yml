@@ -15,6 +15,10 @@ spring:
       # not requiring a version keeps every other path unversioned.
       required: false
       supported: "1"
+  modulith:
+    events:
+      # Listeners that failed or were interrupted by a shutdown get their events again on the next start.
+      republish-outstanding-events-on-restart: true
 
 server:
   shutdown: graceful

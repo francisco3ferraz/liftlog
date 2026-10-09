@@ -34,6 +34,7 @@ dependencies {
     implementation(libs.spring.boot.starter.flyway)
     implementation(libs.flyway.database.postgresql)
     implementation(libs.spring.modulith.starter.core)
+    implementation(libs.spring.modulith.starter.jdbc)
     runtimeOnly(libs.postgresql)
 
     testImplementation(libs.spring.boot.starter.test)
