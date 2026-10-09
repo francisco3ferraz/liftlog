@@ -14,6 +14,8 @@ import org.junit.jupiter.api.Test;
 import org.slf4j.MDC;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
+import org.springframework.context.annotation.ComponentScan.Filter;
+import org.springframework.context.annotation.FilterType;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.assertj.MockMvcTester;
@@ -24,7 +26,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-@WebMvcTest(GlobalExceptionHandlerTest.TestController.class)
+// The handler is tested against a request id it finds in the MDC, so the filter that would replace it is left out.
+@WebMvcTest(
+        controllers = GlobalExceptionHandlerTest.TestController.class,
+        excludeFilters = @Filter(type = FilterType.ASSIGNABLE_TYPE, classes = RequestIdFilter.class))
 @Import(GlobalExceptionHandlerTest.TestController.class)
 class GlobalExceptionHandlerTest {
 

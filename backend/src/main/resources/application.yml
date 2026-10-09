@@ -12,3 +12,14 @@ spring:
 
 server:
   shutdown: graceful
+
+---
+# Outside local development, logs are ECS JSON; it includes the MDC, so every line carries the request id.
+spring:
+  config:
+    activate:
+      on-profile: "!local"
+logging:
+  structured:
+    format:
+      console: ecs

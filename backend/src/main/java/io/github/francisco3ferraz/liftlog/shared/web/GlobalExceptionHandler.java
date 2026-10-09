@@ -28,8 +28,6 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @RestControllerAdvice
 class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
-    static final String REQUEST_ID_KEY = "requestId";
-
     private static final Logger log = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
     /** One invalid field or parameter; {@code field} is empty when the error is about the whole object. */
@@ -84,9 +82,9 @@ class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         if (problem.getType() == null) {
             problem.setType(ProblemTypes.type(code));
         }
-        var requestId = MDC.get(REQUEST_ID_KEY);
+        var requestId = MDC.get(RequestIdFilter.MDC_KEY);
         if (requestId != null) {
-            problem.setProperty(REQUEST_ID_KEY, requestId);
+            problem.setProperty("requestId", requestId);
         }
     }
 
