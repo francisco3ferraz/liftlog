@@ -9,6 +9,12 @@ spring:
     hibernate:
       # Flyway owns the schema; Hibernate only checks entity mappings against it.
       ddl-auto: validate
+  mvc:
+    apiversion:
+      # Resolved from the path segment after /api by ApiVersioningConfig, which rejects an /api path without one;
+      # not requiring a version keeps every other path unversioned.
+      required: false
+      supported: "1"
 
 server:
   shutdown: graceful

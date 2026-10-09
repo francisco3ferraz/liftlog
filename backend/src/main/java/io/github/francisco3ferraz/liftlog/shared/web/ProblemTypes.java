@@ -13,6 +13,7 @@ public final class ProblemTypes {
 
     public static final String VALIDATION_FAILED = "validation-failed";
     public static final String INVALID_ID = "invalid-id";
+    public static final String UNSUPPORTED_API_VERSION = "unsupported-api-version";
 
     private static final String TYPE_PREFIX = "urn:problem-type:liftlog:";
 
