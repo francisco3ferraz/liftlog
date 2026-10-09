@@ -35,6 +35,7 @@ dependencies {
     implementation(libs.flyway.database.postgresql)
     implementation(libs.spring.modulith.starter.core)
     implementation(libs.spring.modulith.starter.jdbc)
+    implementation(libs.springdoc.openapi.webmvc.ui)
     runtimeOnly(libs.postgresql)
 
     testImplementation(libs.spring.boot.starter.test)
@@ -43,4 +44,19 @@ dependencies {
     testImplementation(libs.spring.boot.testcontainers)
     testImplementation(libs.testcontainers.junit.jupiter)
     testImplementation(libs.testcontainers.postgresql)
+}
+
+val openApiSnapshot = rootProject.layout.projectDirectory.file("../api/openapi.json")
+
+tasks.register<Test>("generateOpenApiDocs") {
+    description = "Writes the OpenAPI document to api/openapi.json."
+    group = "documentation"
+    testClassesDirs = sourceSets.test.get().output.classesDirs
+    classpath = sourceSets.test.get().runtimeClasspath
+    systemProperty("user.timezone", "UTC")
+    systemProperty("liftlog.openapi.output", openApiSnapshot.asFile.absolutePath)
+    useJUnitPlatform()
+    filter { includeTestsMatching("*.OpenApiSnapshotTest") }
+    outputs.file(openApiSnapshot)
+    outputs.upToDateWhen { false }
 }

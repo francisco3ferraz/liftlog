@@ -1,0 +1,90 @@
+{
+  "components" : {
+    "schemas" : {
+      "InvalidField" : {
+        "description" : "One invalid field or parameter.",
+        "properties" : {
+          "field" : {
+            "description" : "Field or parameter name; empty when the error is about the whole object.",
+            "type" : "string"
+          },
+          "message" : {
+            "description" : "Why the value is invalid.",
+            "type" : "string"
+          }
+        },
+        "required" : [ "field", "message" ],
+        "type" : "object"
+      },
+      "Problem" : {
+        "description" : "An RFC 9457 Problem Details body.",
+        "properties" : {
+          "code" : {
+            "description" : "Stable machine-readable code; clients branch on this.",
+            "type" : "string"
+          },
+          "detail" : {
+            "description" : "Explanation specific to this occurrence.",
+            "type" : "string"
+          },
+          "errors" : {
+            "description" : "One entry per invalid field, for validation failures.",
+            "items" : {
+              "$ref" : "#/components/schemas/InvalidField"
+            },
+            "type" : "array"
+          },
+          "instance" : {
+            "description" : "Request path of this occurrence.",
+            "format" : "uri-reference",
+            "type" : "string"
+          },
+          "requestId" : {
+            "description" : "Id of the request, as logged by the server.",
+            "type" : "string"
+          },
+          "status" : {
+            "description" : "HTTP status code.",
+            "format" : "int32",
+            "type" : "integer"
+          },
+          "title" : {
+            "description" : "Short summary of the problem type.",
+            "type" : "string"
+          },
+          "type" : {
+            "description" : "Stable problem type URI.",
+            "format" : "uri",
+            "type" : "string"
+          }
+        },
+        "required" : [ "code", "status", "title", "type" ],
+        "type" : "object"
+      }
+    },
+    "securitySchemes" : {
+      "csrf" : {
+        "in" : "header",
+        "name" : "X-XSRF-TOKEN",
+        "type" : "apiKey"
+      },
+      "session" : {
+        "in" : "cookie",
+        "name" : "LIFTLOG_SESSION",
+        "type" : "apiKey"
+      }
+    }
+  },
+  "info" : {
+    "title" : "LiftLog API",
+    "version" : "v1"
+  },
+  "openapi" : "3.1.0",
+  "paths" : { },
+  "security" : [ {
+    "session" : [ ]
+  } ],
+  "servers" : [ {
+    "url" : "/"
+  } ]
+}
