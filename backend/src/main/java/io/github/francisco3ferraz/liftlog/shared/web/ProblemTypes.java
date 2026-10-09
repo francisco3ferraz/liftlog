@@ -15,6 +15,8 @@ public final class ProblemTypes {
     public static final String INVALID_ID = "invalid-id";
     public static final String UNSUPPORTED_API_VERSION = "unsupported-api-version";
     public static final String INVALID_CURSOR = "invalid-cursor";
+    public static final String PRECONDITION_REQUIRED = "precondition-required";
+    public static final String PRECONDITION_FAILED = "precondition-failed";
 
     private static final String TYPE_PREFIX = "urn:problem-type:liftlog:";
 
