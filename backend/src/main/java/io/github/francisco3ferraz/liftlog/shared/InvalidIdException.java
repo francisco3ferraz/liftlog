@@ -1,5 +1,6 @@
 package io.github.francisco3ferraz.liftlog.shared;
 
+import io.github.francisco3ferraz.liftlog.shared.web.ProblemTypes;
 import java.util.UUID;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
@@ -16,7 +17,7 @@ public final class InvalidIdException extends ErrorResponseException {
 
     private static ProblemDetail problem(UUID id) {
         var problem = ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, "Id " + id + " is not a UUIDv7.");
-        problem.setProperty("code", "invalid-id");
+        problem.setProperty("code", ProblemTypes.INVALID_ID);
         return problem;
     }
 }
